@@ -9,13 +9,20 @@ let Div = styled.div`
   border-radius: 9px;
 `;
 
+let Svg = styled.svg`
+  height: 500;
+  width: 100%;
+  margin-right: 0px;
+  margin-left: 0px;
+`;
+
+const height = 500;
+const width = 500;
 function LineChart({ data }) {
-  console.log("DATA! ", data);
   d3.select("#canvas").selectAll("g > *").remove();
+
   const ref = useD3(
     (svg) => {
-      const height = 500;
-      const width = 500;
       const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
       const x = d3
@@ -110,11 +117,22 @@ function LineChart({ data }) {
 
   return (
     <Div id="canvas">
-      <svg
+      {/* <svg
         ref={ref}
         style={{
           height: 500,
           width: "100%",
+          marginRight: "0px",
+          marginLeft: "0px",
+        }}
+      > */}
+      <Svg
+        ref={ref}
+        viewBox={`0 0 ${height} ${width}`}
+        style={{
+          // height: 500,
+          // width: "100%",
+          height: "100%",
           marginRight: "0px",
           marginLeft: "0px",
         }}
@@ -125,7 +143,8 @@ function LineChart({ data }) {
         <g className="tooltip-area">
           <text className="tooltip-area__text">aas</text>
         </g>
-      </svg>
+      </Svg>
+      {/* </svg> */}
     </Div>
   );
 }
