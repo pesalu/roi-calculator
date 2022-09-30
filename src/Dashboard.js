@@ -7,7 +7,16 @@ import Input from "./Components/Input";
 import LineChart from "./charts/LineChart/LineChart";
 import styled from "styled-components";
 
-let Main = styled.div``;
+let Main = styled.div`
+  // background-color: #252423;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    191deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(143, 175, 255, 1) 100%
+  );
+`;
 
 let MainContent = styled.div`
   margin: 0 auto;
@@ -15,22 +24,26 @@ let MainContent = styled.div`
 `;
 
 let Footer = styled.div`
-  margin: 1rem 0rem;
+  margin-top: 2rem;
   padding: 1.4rem 1rem;
   border-top: 1px solid #eee;
 `;
 
+let GraphInputContainer = styled.div`
+  padding: 1rem;
+  display: grid;
+  max-width: 200rem;
+  gap: 1rem;
+`;
+
 let Container = styled.div`
-  // background: red;
   background: #eee;
   padding: 1rem;
-  margin: 0.4rem auto;
   border-radius: 9px;
 `;
 
-let GraphInputContainer = styled.div`
-  background: #fcfcfc;
-  max-width: 200rem;
+let Title = styled.h1`
+  color: #fff;
 `;
 
 let Dashboard = () => {
@@ -55,6 +68,7 @@ let Dashboard = () => {
     <Main>
       <MainContent>
         <GraphInputContainer>
+          <Title>ROI Calculator</Title>
           <Container>
             <Input title="Investment" setValue={setInvestment} />
             <Input title="Interest Rate" setValue={setInterestRate} />
