@@ -20,6 +20,7 @@ const height = 500;
 const width = 500;
 function LineChart({ data }) {
   d3.select("#canvas").selectAll("g > *").remove();
+  d3.select("#canvas").selectAll("circle").remove();
 
   const ref = useD3(
     (svg) => {
@@ -75,20 +76,26 @@ function LineChart({ data }) {
       var tooltip = d3.select(".tooltip-area").style("opacity", 0);
 
       const mouseover = (event, d) => {
+        console.log("OPACITY 1");
         tooltip.style("opacity", 1);
       };
 
       const mouseleave = (event, d) => {
-        // tooltip.style('opacity', 0);
+        tooltip.style("opacity", 0);
       };
 
       const mousemove = (event, d) => {
-        const text = d3.select(".tooltip-area__text");
-        text.text(`Sales were ${d.y} in ${d.x}`);
+        const text = d3.select(".tooltip-area-text");
+        text.text(`Year: ${d.x}, Value: ${d.y}`);
         const [x, y] = d3.pointer(event);
-
+        console.log("HERE ", x, y);
         tooltip.attr("transform", `translate(${x}, ${y})`);
       };
+
+      svg
+        .select(".tooltip-area")
+        .append("text")
+        .attr("class", "tooltip-area-text");
 
       svg
         .select(".plot-area")
@@ -107,7 +114,15 @@ function LineChart({ data }) {
             .y(function (d) {
               return y1(d.y);
             })
-        )
+        );
+
+      svg
+        .selectAll(".circles")
+        .data(data)
+        .join("circle")
+        .attr("r", 5)
+        .attr("cx", (d) => x(d.x))
+        .attr("cy", (d) => y1(d.y))
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
         .on("mouseover", mouseover);
@@ -116,8 +131,9 @@ function LineChart({ data }) {
   );
 
   return (
-    <Div id="canvas">
-      {/* <svg
+    <>
+      <Div id="canvas">
+        {/* <svg
         ref={ref}
         style={{
           height: 500,
@@ -126,26 +142,25 @@ function LineChart({ data }) {
           marginLeft: "0px",
         }}
       > */}
-      <Svg
-        ref={ref}
-        viewBox={`0 0 ${height} ${width}`}
-        style={{
-          // height: 500,
-          // width: "100%",
-          height: "100%",
-          marginRight: "0px",
-          marginLeft: "0px",
-        }}
-      >
-        <g className="plot-area" />
-        <g className="x-axis" />
-        <g className="y-axis" />
-        <g className="tooltip-area">
-          <text className="tooltip-area__text">aas</text>
-        </g>
-      </Svg>
-      {/* </svg> */}
-    </Div>
+        <Svg
+          ref={ref}
+          viewBox={`0 0 ${height} ${width}`}
+          style={{
+            // height: 500,
+            // width: "100%",
+            height: "100%",
+            marginRight: "0px",
+            marginLeft: "0px",
+          }}
+        >
+          <g className="plot-area" />
+          <g className="x-axis" />
+          <g className="y-axis" />
+          <g className="tooltip-area"></g>
+        </Svg>
+        {/* </svg> */}
+      </Div>
+    </>
   );
 }
 
