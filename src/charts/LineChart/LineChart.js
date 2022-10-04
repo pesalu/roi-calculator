@@ -1,12 +1,14 @@
 import { useD3 } from "../../hooks/useD3";
 import React from "react";
+import { useState } from "react";
 import * as d3 from "d3";
 import styled from "styled-components";
 
 let Div = styled.div`
   background-color: #fff;
-  padding: 1rem;
+  padding: 0rem;
   border-radius: 9px;
+  position: relative;
 `;
 
 let Svg = styled.svg`
@@ -19,8 +21,11 @@ let Svg = styled.svg`
 const height = 500;
 const width = 500;
 function LineChart({ data }) {
+  const [activeDataPointIndex, setActiveDataPointIndex] = useState(null);
+
   d3.select("#canvas").selectAll("g > *").remove();
   d3.select("#canvas").selectAll("circle").remove();
+  d3.select("#canvas").selectAll(".tooltip").remove();
 
   const ref = useD3(
     (svg) => {
@@ -70,40 +75,100 @@ function LineChart({ data }) {
               .text(data.y1)
           );
 
+      svg
+        .append("g")
+        .attr("class", "grid")
+        .attr("transform", `translate(${margin.left},0)`)
+        .call(
+          d3
+            .axisLeft(y1)
+            .tickSize(-(width - margin.left - margin.right))
+            .tickFormat("")
+        );
+
+      svg
+        .selectAll("g.tick")
+        .select("line")
+        .attr("stroke", "#E6E6E3")
+        .style("stroke-dasharray", "5 5");
+
       svg.select(".x-axis").call(xAxis);
       svg.select(".y-axis").call(y1Axis);
 
-      var tooltip = d3.select(".tooltip-area").style("opacity", 0);
+      let tooltipDiv = d3
+        .select("#canvas")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("background-color", "steelblue")
+        .style("padding", "0.5rem")
+        .style("border-radius", "9px")
+        .style("opacity", 0);
 
-      const mouseover = (event, d) => {
-        console.log("OPACITY 1");
-        tooltip.style("opacity", 1);
-      };
+      let tooltipText = tooltipDiv.append("p");
 
-      const mouseleave = (event, d) => {
-        tooltip.style("opacity", 0);
-      };
-
-      const mousemove = (event, d) => {
-        const text = d3.select(".tooltip-area-text");
-        text.text(`Year: ${d.x}, Value: ${d.y}`);
-        const [x, y] = d3.pointer(event);
-        console.log("HERE ", x, y);
-        tooltip.attr("transform", `translate(${x}, ${y})`);
-      };
-
-      svg
-        .select(".tooltip-area")
+      d3.select(".tooltip-area")
         .append("text")
         .attr("class", "tooltip-area-text");
 
-      svg
-        .select(".plot-area")
+      const mouseleave = (event, d) => {
+        tooltipDiv.transition().duration(500).style("opacity", 0);
+        d3.select(".active-datapoint")
+          .transition()
+          .duration(500)
+          .style("opacity", 0);
+      };
+
+      const mousemove = (event, d) => {
+        const bisect = d3.bisector((d) => d.x).left;
+        let [x0, y0] = d3.pointer(event);
+        let dataPointIndex = bisect(data, x.invert(x0), 1);
+
+        let activeDataPoint = data[dataPointIndex - 1];
+
+        // Show data point
+        d3.select(".active-datapoint")
+          .transition()
+          .duration(30)
+          .attr(
+            "transform",
+            `translate(${x(activeDataPoint.x)}, ${y1(activeDataPoint.y)})`
+          )
+          .transition()
+          .duration(400)
+          .style("opacity", 0.7);
+
+        // Show tooltip
+        tooltipDiv
+          .transition()
+          .duration(30)
+          .style(
+            "left",
+            (100 * (x(activeDataPoint.x) + 2 * circleRadius)) / width + "%"
+          )
+          .style(
+            "top",
+            (100 * (y1(activeDataPoint.y) + 2 * circleRadius)) / height + "%"
+          )
+          .transition()
+          .duration(10)
+          .style("opacity", 0.9);
+
+        tooltipText.html(`
+          <strong>Year:</strong> ${activeDataPoint.x}
+          <br>
+          <strong>Value:</strong> ${Math.ceil(activeDataPoint.y)}
+        `);
+      };
+
+      d3.select("svg")
+        .append("g")
+        .attr("class", "plot-area")
         .append("path")
         .datum(data)
         .attr("fill", "none")
         .attr("stroke", "steelblue")
-        .attr("stroke-width", 1.5)
+        .attr("stroke-width", 3.5)
         .attr(
           "d",
           d3
@@ -116,16 +181,23 @@ function LineChart({ data }) {
             })
         );
 
+      svg.on("mousemove", mousemove).on("mouseleave", mouseleave);
+
+      let circleRadius = 3;
       svg
         .selectAll(".circles")
         .data(data)
         .join("circle")
-        .attr("r", 5)
+        .attr("r", circleRadius)
         .attr("cx", (d) => x(d.x))
-        .attr("cy", (d) => y1(d.y))
-        .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave)
-        .on("mouseover", mouseover);
+        .attr("cy", (d) => y1(d.y));
+
+      var activeDataPointElement = svg
+        .append("g")
+        .attr("class", "active-datapoint")
+        .style("opacity", 0);
+
+      activeDataPointElement.append("circle").attr("r", 10).attr("fill", "red");
     },
     [data]
   );
@@ -153,10 +225,9 @@ function LineChart({ data }) {
             marginLeft: "0px",
           }}
         >
-          <g className="plot-area" />
+          {/* <g className="plot-area" /> */}
           <g className="x-axis" />
           <g className="y-axis" />
-          <g className="tooltip-area"></g>
         </Svg>
         {/* </svg> */}
       </Div>

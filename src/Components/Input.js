@@ -26,9 +26,8 @@ let Container = styled.div`
   margin-bottom: 1.2rem;
 `;
 
-let Input = ({ title, setValue }) => {
+let Input = ({ title, defaultValue, setValue }) => {
   let changeValue = (event) => {
-    console.log("VALUE: ", event.target.value);
     setValue(parseFloat(event.target.value));
   };
   let placeholderText = "Insert number";
@@ -37,7 +36,7 @@ let Input = ({ title, setValue }) => {
       <Label>{title}</Label>
       <InputS
         type="number"
-        defaultValue={0}
+        value={defaultValue}
         placeholder={placeholderText}
         onChange={changeValue}
       ></InputS>

@@ -11,22 +11,28 @@ let Main = styled.div`
   // background-color: #252423;
   background: rgb(2, 0, 36);
   background: linear-gradient(
-    191deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(0, 0, 0, 1) 30%,
-    rgba(143, 175, 255, 1) 100%
+    190deg,
+    #1e3e57 0%,
+    rgba(2, 0, 36, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
   );
 `;
 
 let MainContent = styled.div`
   margin: 0 auto;
-  max-width: 50%;
+  // max-width: 70%;
+  max-width: 40rem;
+
+  @media screen and (max-width: 780px) {
+    max-width: 100%;
+  }
 `;
 
 let Footer = styled.div`
   margin-top: 2rem;
   padding: 1.4rem 1rem;
   border-top: 1px solid #eee;
+  background-color: #fff;
 `;
 
 let GraphInputContainer = styled.div`
@@ -70,10 +76,26 @@ let Dashboard = () => {
         <GraphInputContainer>
           <Title>ROI Calculator</Title>
           <Container>
-            <Input title="Investment" setValue={setInvestment} />
-            <Input title="Interest Rate" setValue={setInterestRate} />
-            <Input title="Investment Period" setValue={setInvestmentPeriod} />
-            <Input title="Yearly Management Costs " setValue={setFee} />
+            <Input
+              title="Investment"
+              defaultValue={investment}
+              setValue={setInvestment}
+            />
+            <Input
+              title="Interest Rate"
+              defaultValue={interestRate}
+              setValue={setInterestRate}
+            />
+            <Input
+              title="Investment Period"
+              defaultValue={investmentPeriod}
+              setValue={setInvestmentPeriod}
+            />
+            <Input
+              title="Yearly Management Costs "
+              defaultValue={fee}
+              setValue={setFee}
+            />
           </Container>
           <Container>
             <LineChart data={data} />

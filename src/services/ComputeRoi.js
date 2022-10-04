@@ -1,9 +1,12 @@
+import { act } from "react-dom/test-utils";
+
 let investment = 1000;
 let cost = 0;
 let interest = 0.1;
 
 let roi = (investment, interest, cost, year) => {
-  let coeff = 1 + interest - cost + interest * cost;
+  console.log(interest, cost);
+  let coeff = 1 + interest - cost;
   return investment * Math.pow(coeff, year);
 };
 
