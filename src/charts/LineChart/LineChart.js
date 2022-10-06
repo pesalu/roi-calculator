@@ -1,6 +1,5 @@
-import { useD3 } from "../../hooks/useD3";
 import React from "react";
-import { useState } from "react";
+import { useEffect } from "react";
 import * as d3 from "d3";
 import styled from "styled-components";
 
@@ -21,19 +20,17 @@ let Svg = styled.svg`
 const height = 500;
 const width = 500;
 function LineChart({ data }) {
-  const [activeDataPointIndex, setActiveDataPointIndex] = useState(null);
-
   d3.select("#canvas").selectAll("g > *").remove();
   d3.select("#canvas").selectAll("circle").remove();
   d3.select("#canvas").selectAll(".tooltip").remove();
 
-  const ref = useD3(draw(data), [data]);
+  let renderFn = getRenderFn(data);
+  useEffect(renderFn, [data]);
 
   return (
     <>
       <Div id="canvas">
         <Svg
-          ref={ref}
           viewBox={`0 0 ${height} ${width}`}
           style={{
             height: "100%",
@@ -55,8 +52,9 @@ function LineChart({ data }) {
 
 export default LineChart;
 
-function draw(data) {
-  return (svg) => {
+function getRenderFn(data) {
+  return () => {
+    let svg = d3.select("svg");
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
     const circleRadius = 3;
 
