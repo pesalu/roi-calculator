@@ -6,19 +6,17 @@ import styled from "styled-components";
 let Div = styled.div`
   background-color: #fff;
   padding: 0rem;
-  border-radius: 9px;
+  border-radius: 0.9rem;
   position: relative;
 `;
 
 let Svg = styled.svg`
-  height: 500;
-  width: 100%;
-  margin-right: 0px;
-  margin-left: 0px;
+  margin-right: 0rem;
+  margin-left: 0rem;
 `;
 
-const height = 500;
-const width = 500;
+const height = 400;
+const width = 900;
 function LineChart({ data }) {
   d3.select("#canvas").selectAll("g > *").remove();
   d3.select("#canvas").selectAll("circle").remove();
@@ -31,11 +29,9 @@ function LineChart({ data }) {
     <>
       <Div id="canvas">
         <Svg
-          viewBox={`0 0 ${height} ${width}`}
+          viewBox={`0 0 ${width} ${height}`}
           style={{
             height: "100%",
-            marginRight: "0px",
-            marginLeft: "0px",
           }}
         >
           <g className="grid" />

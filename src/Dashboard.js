@@ -1,11 +1,51 @@
 import React, { useState } from "react";
 
-import ComputeRoi from "./services/ComputeRoi";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Input from "./Components/Input";
+import { roiForPeriod } from "./services/ComputeRoi";
 
-import LineChart from "./charts/LineChart/LineChart";
 import styled from "styled-components";
+
+import Header from "./Components/Header";
+import Menu from "./Menu";
+import { RoiCalculator } from "./RoiCalculator";
+import { PortfolioOverview } from "./Components/PortfolioOverview";
+
+/* DESIGN SYSTEM 
+
+  --- 01 TYPOGRAPHY SYSTEM
+
+  FONT SIZE SYSTEM (px)
+  10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+  - Font weights:
+  Default: 400
+  Medium: 500
+  Semi-Bold: 600
+  Bold: 700
+
+
+  - Line heights:
+  Default: 1
+  Small: 1.05
+  Medium: 1.2
+  Paragraph default: 1.6
+  Large: 1.8
+
+  - Letter spacing
+    - 0.5 px, 0.75 px
+
+  --- 02 COLORS
+  Primary: 
+  Tints: 
+  Shades: 
+  Accents:
+  Greys: 
+  #6F6F6F (lightest gray allowed)
+  #555
+  #333 
+  
+  */
 
 let Main = styled.div`
   // background-color: #252423;
@@ -16,12 +56,14 @@ let Main = styled.div`
     rgba(2, 0, 36, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
 `;
 
 let MainContent = styled.div`
   margin: 0 auto;
-  // max-width: 70%;
-  max-width: 40rem;
+  width: 80%;
 
   @media screen and (max-width: 780px) {
     max-width: 100%;
@@ -29,27 +71,15 @@ let MainContent = styled.div`
 `;
 
 let Footer = styled.div`
-  margin-top: 2rem;
+  // margin-top: 2rem;
   padding: 1.4rem 1rem;
   border-top: 1px solid #eee;
-  background-color: #fff;
-`;
-
-let GraphInputContainer = styled.div`
-  padding: 1rem;
-  display: grid;
-  max-width: 200rem;
-  gap: 1rem;
-`;
-
-let Container = styled.div`
-  background: #eee;
-  padding: 1rem;
-  border-radius: 9px;
-`;
-
-let Title = styled.h1`
   color: #fff;
+`;
+
+let Layout = styled.div`
+  display: grid;
+  grid-template-columns: 0.2fr 0.8fr;
 `;
 
 let Dashboard = () => {
@@ -58,58 +88,64 @@ let Dashboard = () => {
   const [investmentPeriod, setInvestmentPeriod] = useState(5);
   const [fee, setFee] = useState(0);
 
-  let data = ComputeRoi.roiForPeriod(
-    investment,
-    interestRate,
-    fee,
-    investmentPeriod
-  ).map((row) => {
-    return {
-      x: row.x,
-      y: row.y,
-    };
-  });
+  let data = roiForPeriod(investment, interestRate, fee, investmentPeriod).map(
+    (row) => {
+      return {
+        x: row.x,
+        y: row.y,
+      };
+    }
+  );
 
   return (
     <Main>
-      <MainContent>
-        <GraphInputContainer>
-          <Title>ROI Calculator</Title>
-          <Container>
-            <Input
-              title="Investment"
-              defaultValue={investment}
-              setValue={setInvestment}
-            />
-            <Input
-              title="Interest Rate"
-              defaultValue={interestRate}
-              setValue={setInterestRate}
-            />
-            <Input
-              title="Investment Period"
-              defaultValue={investmentPeriod}
-              setValue={setInvestmentPeriod}
-            />
-            <Input
-              title="Yearly Management Costs "
-              defaultValue={fee}
-              setValue={setFee}
-            />
-          </Container>
-          <Container>
-            <LineChart data={data} />
-          </Container>
-        </GraphInputContainer>
-      </MainContent>
-      <Footer style={{ height: 20 }}>
-        <div style={{ marginTop: -10 }}>
-          See the code <a href="">here</a>; Author{" "}
-          <a href="https://pesalu.github.io/petri-luukkonen-profile">
-            Petri Luukkonen
-          </a>
-          ;
-        </div>
+      <Header></Header>
+      <Router>
+        <Layout>
+          <Menu></Menu>
+          <MainContent>
+            <Routes>
+              <Route
+                path="/test"
+                element={
+                  <RoiCalculator
+                    investment={investment}
+                    setInvestment={setInvestment}
+                    interestRate={interestRate}
+                    setInterestRate={setInterestRate}
+                    investmentPeriod={investmentPeriod}
+                    setInvestmentPeriod={setInvestmentPeriod}
+                    fee={fee}
+                    setFee={setFee}
+                    data={data}
+                  ></RoiCalculator>
+                }
+              />
+              <Route
+                path="/test2"
+                element={
+                  <PortfolioOverview
+                    investment={investment}
+                    setInvestment={setInvestment}
+                    interestRate={interestRate}
+                    setInterestRate={setInterestRate}
+                    investmentPeriod={investmentPeriod}
+                    setInvestmentPeriod={setInvestmentPeriod}
+                    fee={fee}
+                    setFee={setFee}
+                    data={data}
+                  ></PortfolioOverview>
+                }
+              />
+            </Routes>
+          </MainContent>
+        </Layout>
+      </Router>
+      <Footer>
+        See the code <a href="">here</a>; Author{" "}
+        <a href="https://pesalu.github.io/petri-luukkonen-profile">
+          Petri Luukkonen
+        </a>
       </Footer>
     </Main>
   );
