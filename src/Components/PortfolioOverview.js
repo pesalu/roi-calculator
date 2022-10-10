@@ -1,7 +1,7 @@
 import React from "react";
 import NumberInput from "./NumberInput";
 import LineChart from "../charts/LineChart/LineChart";
-import { GraphInputContainer, Title, Container } from "../StyledContainers";
+import { GraphInputContainer, Container } from "../StyledContainers";
 import styled from "styled-components";
 
 let CustomLayout = styled.div`
@@ -29,6 +29,15 @@ let RoundedContainerRight = styled(Container)`
   border-radius: 0px;
   border-top-right-radius: 9px;
   border-bottom-right-radius: 9px;
+`;
+
+let Title = styled.h1`
+  font-size: 3rem;
+  color: #fff;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+
+  transition: all 0.3s;
 `;
 
 export function PortfolioOverview(props) {

@@ -2,7 +2,11 @@ import React from "react";
 import { useState } from "react";
 import Input from "./Components/NumberInput";
 import LineChart from "./charts/LineChart/LineChart";
-import { GraphInputContainer, Title, Container } from "./StyledContainers";
+import {
+  GraphInputContainer,
+  TitleContainer,
+  Container,
+} from "./StyledContainers";
 import { roiForPeriod } from "./services/ComputeRoi";
 import styled from "styled-components";
 export function RoiCalculator(props) {
@@ -17,7 +21,7 @@ export function RoiCalculator(props) {
 
   return (
     <GraphInputContainer>
-      <Title>ROI Calculator</Title>
+      <TitleContainer visible={true}>ROI Calculator</TitleContainer>
       <Container>
         <Input
           title="Investment"

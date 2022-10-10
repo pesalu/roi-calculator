@@ -79,7 +79,8 @@ let Footer = styled.div`
 
 let Layout = styled.div`
   display: grid;
-  grid-template-columns: 0.2fr 0.8fr;
+  // grid-template-columns: 0.2fr 0.8fr;
+  grid-template-columns: auto 1fr;
 `;
 
 let Dashboard = () => {
