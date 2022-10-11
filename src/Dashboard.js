@@ -8,6 +8,7 @@ import styled from "styled-components";
 
 import Header from "./Components/Header";
 import Menu from "./Menu";
+import Menu2 from "./Menu2";
 import { RoiCalculator } from "./RoiCalculator";
 import { PortfolioOverview } from "./Components/PortfolioOverview";
 
@@ -89,6 +90,8 @@ let Dashboard = () => {
   const [investmentPeriod, setInvestmentPeriod] = useState(5);
   const [fee, setFee] = useState(0);
 
+  const [minimized, setMinimized] = useState(false);
+
   let data = roiForPeriod(investment, interestRate, fee, investmentPeriod).map(
     (row) => {
       return {
@@ -98,12 +101,17 @@ let Dashboard = () => {
     }
   );
 
+  let toggleSideMenu = () => {
+    setMinimized(!minimized);
+  };
+
   return (
     <Main>
-      <Header></Header>
+      <Header toggleSideMenu={toggleSideMenu}></Header>
+      {/* <Header></Header> */}
       <Router>
         <Layout>
-          <Menu></Menu>
+          <Menu2 minimized={minimized}></Menu2>
           <MainContent>
             <Routes>
               <Route
