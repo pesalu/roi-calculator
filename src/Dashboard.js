@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import { roiForPeriod } from "./services/ComputeRoi";
 
@@ -48,7 +48,6 @@ import { PortfolioOverview } from "./Components/PortfolioOverview";
   */
 
 let Main = styled.div`
-  // background-color: #252423;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     190deg,
@@ -56,7 +55,7 @@ let Main = styled.div`
     rgba(2, 0, 36, 1) 50%,
     rgba(0, 0, 0, 1) 100%
   );
-  height: 100vh;
+  min-height: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 `;
@@ -71,7 +70,6 @@ let MainContent = styled.div`
 `;
 
 let Footer = styled.div`
-  // margin-top: 2rem;
   padding: 1.4rem 1rem;
   border-top: 1px solid #eee;
   color: #fff;
@@ -89,6 +87,8 @@ let Dashboard = () => {
   const [investmentPeriod, setInvestmentPeriod] = useState(5);
   const [fee, setFee] = useState(0);
 
+  const [minimized, setMinimized] = useState(false);
+
   let data = roiForPeriod(investment, interestRate, fee, investmentPeriod).map(
     (row) => {
       return {
@@ -98,12 +98,17 @@ let Dashboard = () => {
     }
   );
 
+  let toggleSideMenu = () => {
+    setMinimized(!minimized);
+  };
+
   return (
     <Main>
-      <Header></Header>
+      <Header toggleSideMenu={toggleSideMenu}></Header>
+      {/* <Header></Header> */}
       <Router>
         <Layout>
-          <Menu></Menu>
+          <Menu minimized={minimized}></Menu>
           <MainContent>
             <Routes>
               <Route
