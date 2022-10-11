@@ -29,6 +29,7 @@ function LineChart({ data }) {
     <>
       <Div id="canvas">
         <Svg
+          id="canvas-svg"
           viewBox={`0 0 ${width} ${height}`}
           style={{
             height: "100%",
@@ -50,7 +51,7 @@ export default LineChart;
 
 function getRenderFn(data) {
   return () => {
-    let svg = d3.select("svg");
+    let svg = d3.select("#canvas-svg");
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
     const circleRadius = 3;
 
@@ -114,10 +115,14 @@ function drawDataPoints(svg, data, circleRadius, getX, getY) {
 }
 
 function drawLine(svg, data, getX, getY) {
-  svg
-    .select(".plot-area")
-    .append("path")
+  console.log(svg);
+  let plotArea = svg.select(".plot-area");
+  console.log(plotArea);
+  let path = plotArea.append("path");
+  console.log(path);
+  path
     .datum(data)
+    .attr("id", "line-graph")
     .attr("fill", "none")
     .attr("stroke", "steelblue")
     .attr("stroke-width", 3.5)

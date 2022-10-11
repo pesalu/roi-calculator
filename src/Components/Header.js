@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-
+import { MenuAltLeft, UserCircle, Bell } from "@styled-icons/boxicons-regular";
+import { HeaderMenuItem } from "../StyledContainers";
 export let NavBar = styled.nav`
   display: flex;
   align-items: center;
@@ -24,13 +25,22 @@ let StyledHeader = styled.header`
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 `;
 
-let Header = () => {
+let Header = ({ toggleSideMenu }) => {
   return (
     <StyledHeader>
+      <HeaderMenuItem onClick={toggleSideMenu}>
+        <MenuAltLeft size="4.4rem" color="#fff" />
+      </HeaderMenuItem>
       <NavText>FinDat</NavText>
       <NavBar>
-        <NavText>Notification</NavText>
-        <NavText>NavIcon</NavText>
+        <HeaderMenuItem>
+          <Bell size="4.4rem" color="#fff" />
+          Notification
+        </HeaderMenuItem>
+        <HeaderMenuItem>
+          <UserCircle size="4.4rem" color="#fff" />
+          NavIcon
+        </HeaderMenuItem>
       </NavBar>
     </StyledHeader>
   );
