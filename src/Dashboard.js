@@ -9,7 +9,7 @@ import styled from "styled-components";
 import Header from "./Components/Header";
 import Menu from "./Menu";
 import { RoiCalculator } from "./RoiCalculator";
-import { PortfolioOverview } from "./Components/PortfolioOverview";
+import { ControllerLineChartCard } from "./Components/PortfolioOverview";
 
 /* DESIGN SYSTEM 
 
@@ -104,8 +104,7 @@ let Dashboard = () => {
 
   return (
     <Main>
-      <Header toggleSideMenu={toggleSideMenu}></Header>
-      {/* <Header></Header> */}
+      <Header toggleSideMenu={toggleSideMenu} minimized={minimized}></Header>
       <Router>
         <Layout>
           <Menu minimized={minimized}></Menu>
@@ -130,7 +129,7 @@ let Dashboard = () => {
               <Route
                 path="/test2"
                 element={
-                  <PortfolioOverview
+                  <ControllerLineChartCard
                     investment={investment}
                     setInvestment={setInvestment}
                     interestRate={interestRate}
@@ -140,7 +139,7 @@ let Dashboard = () => {
                     fee={fee}
                     setFee={setFee}
                     data={data}
-                  ></PortfolioOverview>
+                  ></ControllerLineChartCard>
                 }
               />
             </Routes>

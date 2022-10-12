@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import Input from "./Components/NumberInput";
 import LineChart from "./charts/LineChart/LineChart";
 import {
@@ -7,21 +6,13 @@ import {
   TitleContainer,
   Container,
 } from "./StyledContainers";
-import { roiForPeriod } from "./services/ComputeRoi";
-import styled from "styled-components";
+
 export function RoiCalculator(props) {
-  const [investment, setInvestment] = useState(1000);
-  const [interestRate, setInterestRate] = useState(0.1);
-  const [investmentPeriod, setInvestmentPeriod] = useState(5);
-  const [fee, setFee] = useState(0);
-
-  let GraphContainer = styled(Container)`
-    // width: 80%;
-  `;
-
   return (
     <GraphInputContainer>
-      <TitleContainer visible={true}>ROI Calculator</TitleContainer>
+      <TitleContainer visible={true}>
+        ROI Calculator (Classic Layout)
+      </TitleContainer>
       <Container>
         <Input
           title="Investment"
@@ -44,9 +35,7 @@ export function RoiCalculator(props) {
           setValue={props.setFee}
         />
       </Container>
-      <GraphContainer>
-        <LineChart data={props.data} />
-      </GraphContainer>
+      <LineChart data={props.data} />
     </GraphInputContainer>
   );
 }

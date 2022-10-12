@@ -4,18 +4,9 @@ import LineChart from "../charts/LineChart/LineChart";
 import { GraphInputContainer, Container } from "../StyledContainers";
 import styled from "styled-components";
 
-let CustomLayout = styled.div`
-  padding: 1rem;
-  width: 100%;
-`;
-
 let Layout = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-`;
-
-let CustomGraphInputContainer = styled(GraphInputContainer)`
-  padding: 0rem;
 `;
 
 let RoundedContainerLeft = styled(Container)`
@@ -40,10 +31,10 @@ let Title = styled.h1`
   transition: all 0.3s;
 `;
 
-export function PortfolioOverview(props) {
+export function ControllerLineChartCard(props) {
   return (
     <GraphInputContainer>
-      <Title>ROI Calculator 2</Title>
+      <Title>ROI Calculator (Single Card Layout)</Title>
       <Layout>
         <RoundedContainerLeft>
           <NumberInput

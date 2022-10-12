@@ -5,7 +5,6 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import { BarChartAlt2, LineChart } from "@styled-icons/boxicons-regular";
 import { Link } from "react-router-dom";
-import { active } from "d3";
 import { useState } from "react";
 
 let StyledMenu = styled.div`
@@ -21,70 +20,67 @@ let MenuItemList = styled.div`
   transition: all 0.3s;
 `;
 
+function CustomStyledMenuItem(props) {
+  return (
+    <StyledMenuItem
+      minimized={props.minimized}
+      isActive={props.isActive}
+      onClick={props.onClick}
+    >
+      {props.icon}
+      <Togglable
+        visible={!props.minimized}
+        onTransitionEnd={(e) => {
+          console.log("MIN>", props.minimized);
+
+          if (props.minimized) {
+            document
+              .querySelectorAll(`[id^="menu-button-text"]`)
+              .forEach((el) => {
+                console.log("EL: ", el.id);
+                el.style.display = "none";
+              });
+          }
+        }}
+      >
+        <h4 id="menu-button-text">{props.text}</h4>
+      </Togglable>
+    </StyledMenuItem>
+  );
+}
+
 function Menu({ minimized }) {
-  // let [activeTabId, setActiveTab] = useState();
-  let activeTabId;
+  let [activeTabId, setActiveTab] = useState();
   useEffect(() => {
     if (!minimized) {
-      console.log("is minimized: ", minimized);
-      document.getElementById("menu-button-text").style.display = "block";
-      document.getElementById("menu-button-text-2").style.display = "block";
+      document
+        .querySelectorAll(`[id^="menu-button-text"]`)
+        .forEach((el) => (el.style.display = "block"));
     }
   });
-
-  let toggleActive = (e) => {
-    document.getElementById(activeTabId) &&
-      (document.getElementById(activeTabId).style = {});
-    activeTabId = e.target.id;
-    document.getElementById(activeTabId).style.borderBottom = "1px solid #fff";
-    document.getElementById(activeTabId).style.backgroundColor = "#605e5c";
-    // document.getElementById(activeTabId).style.opacity = "0.4";
-  };
 
   return (
     <StyledMenu id="menu" minimized={minimized}>
       <MenuItemList minimized={minimized}>
         <Link to="/test2">
-          <StyledMenuItem
+          <CustomStyledMenuItem
             id="btn1"
             minimized={minimized}
-            onClick={toggleActive}
-          >
-            <LineChart size="4.4rem" color="#fff" />
-            <Togglable
-              visible={!minimized}
-              onTransitionEnd={(e) => {
-                console.log("MIN", minimized);
-                if (minimized) {
-                  document.getElementById("menu-button-text").style.display =
-                    "none";
-                }
-              }}
-            >
-              <h4 id="menu-button-text">ROI Calculator (2nd Layout)</h4>
-            </Togglable>
-          </StyledMenuItem>
+            isActive={"btn1" === activeTabId}
+            text={"ROI Calculator (Classic Layout)"}
+            icon={<LineChart size="4.4rem" color="#fff" />}
+            onClick={() => setActiveTab("btn1")}
+          ></CustomStyledMenuItem>
         </Link>
         <Link to="/test">
-          <StyledMenuItem
+          <CustomStyledMenuItem
             id="btn2"
             minimized={minimized}
-            onClick={toggleActive}
-          >
-            <BarChartAlt2 size="4.4rem" color="#fff" />
-            <Togglable
-              visible={!minimized}
-              onTransitionEnd={(e) => {
-                console.log("MIN", minimized);
-                if (minimized) {
-                  document.getElementById("menu-button-text-2").style.display =
-                    "none";
-                }
-              }}
-            >
-              <h4 id="menu-button-text-2">ROI Calculator</h4>
-            </Togglable>
-          </StyledMenuItem>
+            isActive={"btn2" === activeTabId}
+            text={"ROI Calculator (Single Card Layout)"}
+            icon={<BarChartAlt2 size="4.4rem" color="#fff" />}
+            onClick={() => setActiveTab("btn2")}
+          ></CustomStyledMenuItem>
         </Link>
       </MenuItemList>
     </StyledMenu>

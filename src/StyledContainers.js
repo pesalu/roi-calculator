@@ -18,9 +18,6 @@ export let TitleContainer = styled.h1`
   color: #fff;
   border-bottom: 1px solid #eee;
   margin-bottom: 1rem;
-
-  // transition: all 0.3s;
-  // opacity: ${(props) => (props.visible ? 1 : 0)};
 `;
 export let TitleContainer2 = styled.div`
   font-size: 3rem;
@@ -49,15 +46,17 @@ export let Togglable = styled.div`
 
 export let StyledMenuItem = styled.div`
   display: flex;
-  // gap: 1rem;
   align-items: center;
   padding: 1rem;
   color: #fff;
   font-size: 1.4rem;
   transition: all 0.3s;
-  border-bottom: 1px solid #252423;
+  border-bottom: 1px solid transparent;
+  border-left: 1px solid transparent;
 
   gap: ${(props) => (props.minimized ? "0rem" : "1rem")};
+  background-color: ${(props) => (props.isActive ? "#605e5c" : "")};
+  border-left: ${(props) => (props.isActive ? "1px solid #fff" : "")};
 
   &:hover {
     border-bottom: 1px solid #fff;
@@ -72,11 +71,11 @@ export let HeaderMenuItem = styled.div`
   padding: 1rem;
 
   color: #fff;
-  // padding: 0.5rem 0rem;
-  // margin-top: 1rem;
   font-size: 1.4rem;
   transition: all 0.3s;
   border-bottom: 1px solid #252423;
+  border-right: 1px solid transparent;
+  border-left: 1px solid transparent;
 
   &:hover {
     border-bottom: 1px solid #eee;
