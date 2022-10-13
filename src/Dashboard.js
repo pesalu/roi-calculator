@@ -147,7 +147,8 @@ let Dashboard = () => {
         </Layout>
       </Router>
       <Footer>
-        See the code <a href="">here</a>; Author{" "}
+        See the code
+        <a href="https://github.com/pesalu/roi-calculator">here</a>; Author{" "}
         <a href="https://pesalu.github.io/petri-luukkonen-profile">
           Petri Luukkonen
         </a>
