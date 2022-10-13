@@ -3,7 +3,7 @@ import { Togglable, StyledMenuItem } from "./StyledContainers";
 import styled from "styled-components";
 
 import { useEffect } from "react";
-import { BarChartAlt2, LineChart } from "@styled-icons/boxicons-regular";
+import { BarChartAlt2, Home, LineChart } from "@styled-icons/boxicons-regular";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -62,6 +62,16 @@ function Menu({ minimized }) {
   return (
     <StyledMenu id="menu" minimized={minimized}>
       <MenuItemList minimized={minimized}>
+        <Link to="/">
+          <CustomStyledMenuItem
+            id="btn0"
+            minimized={minimized}
+            isActive={"btn0" === activeTabId}
+            text={"Home"}
+            icon={<Home size="4.4rem" color="#fff" />}
+            onClick={() => setActiveTab("btn0")}
+          ></CustomStyledMenuItem>
+        </Link>
         <Link to="/test2">
           <CustomStyledMenuItem
             id="btn1"

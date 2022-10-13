@@ -10,6 +10,8 @@ import Header from "./Components/Header";
 import Menu from "./Menu";
 import { RoiCalculator } from "./RoiCalculator";
 import { ControllerLineChartCard } from "./Components/PortfolioOverview";
+import { BarChartSquare } from "@styled-icons/boxicons-regular";
+import { autoType } from "d3";
 
 /* DESIGN SYSTEM 
 
@@ -104,44 +106,60 @@ let Dashboard = () => {
 
   return (
     <Main>
-      <Header toggleSideMenu={toggleSideMenu} minimized={minimized}></Header>
       <Router>
+        <Header toggleSideMenu={toggleSideMenu} minimized={minimized}></Header>
         <Layout>
           <Menu minimized={minimized}></Menu>
           <MainContent>
             <Routes>
-              <Route
-                path="/test"
-                element={
-                  <RoiCalculator
-                    investment={investment}
-                    setInvestment={setInvestment}
-                    interestRate={interestRate}
-                    setInterestRate={setInterestRate}
-                    investmentPeriod={investmentPeriod}
-                    setInvestmentPeriod={setInvestmentPeriod}
-                    fee={fee}
-                    setFee={setFee}
-                    data={data}
-                  ></RoiCalculator>
-                }
-              />
-              <Route
-                path="/test2"
-                element={
-                  <ControllerLineChartCard
-                    investment={investment}
-                    setInvestment={setInvestment}
-                    interestRate={interestRate}
-                    setInterestRate={setInterestRate}
-                    investmentPeriod={investmentPeriod}
-                    setInvestmentPeriod={setInvestmentPeriod}
-                    fee={fee}
-                    setFee={setFee}
-                    data={data}
-                  ></ControllerLineChartCard>
-                }
-              />
+              <Route path="/*">
+                <Route
+                  index
+                  element={
+                    <div
+                      style={{
+                        width: "60%",
+                        margin: "auto auto",
+                        opacity: 0.1,
+                      }}
+                    >
+                      <BarChartSquare color="grey" />
+                    </div>
+                  }
+                />
+                <Route
+                  path="test"
+                  element={
+                    <RoiCalculator
+                      investment={investment}
+                      setInvestment={setInvestment}
+                      interestRate={interestRate}
+                      setInterestRate={setInterestRate}
+                      investmentPeriod={investmentPeriod}
+                      setInvestmentPeriod={setInvestmentPeriod}
+                      fee={fee}
+                      setFee={setFee}
+                      data={data}
+                    ></RoiCalculator>
+                  }
+                />
+                <Route
+                  path="test2"
+                  element={
+                    <ControllerLineChartCard
+                      investment={investment}
+                      setInvestment={setInvestment}
+                      interestRate={interestRate}
+                      setInterestRate={setInterestRate}
+                      investmentPeriod={investmentPeriod}
+                      setInvestmentPeriod={setInvestmentPeriod}
+                      fee={fee}
+                      setFee={setFee}
+                      data={data}
+                    ></ControllerLineChartCard>
+                  }
+                />
+              </Route>
             </Routes>
           </MainContent>
         </Layout>
