@@ -12,6 +12,7 @@ az staticwebapp create \
   --resource-group $resourceGroupName \
   --source https://github.com/$github_user_name/$appName \
   --location $location \
-  --branch main \
+  --branch master \
   --app-location "/" \
+  --output-location "build" \
   --login-with-github
