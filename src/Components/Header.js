@@ -27,6 +27,8 @@ let StyledHeader = styled.header`
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 `;
 
+let MobileNav = styled.nav``;
+
 let Header = ({ toggleSideMenu }) => {
   return (
     <StyledHeader>

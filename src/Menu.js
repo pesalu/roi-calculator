@@ -3,7 +3,13 @@ import { Togglable, StyledMenuItem } from "./StyledContainers";
 import styled from "styled-components";
 
 import { useEffect } from "react";
-import { BarChartAlt2, Home, LineChart } from "@styled-icons/boxicons-regular";
+import {
+  BarChartAlt2,
+  Home,
+  LineChart,
+  MenuAltLeft,
+  X,
+} from "@styled-icons/boxicons-regular";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -14,10 +20,26 @@ let StyledMenu = styled.div`
 
   // width: ${(props) => (props.minimized ? "6.4rem" : "100%")};
   width: ${(props) => (props.minimized ? "auto" : "100%")};
+
+  @media (max-width: 768px) {
+    z-index: 1000;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: ${(props) => (props.minimized ? "block" : "none")};
+    background-color: rgba(37, 36, 35, 0.95);
+  }
 `;
 
 let MenuItemList = styled.div`
   transition: all 0.3s;
+`;
+
+let CustomX = styled(X)`
+  display: "none";
+  @media (max-width: 768px) {
+    display: "block";
+  }
 `;
 
 function CustomStyledMenuItem(props) {
@@ -49,7 +71,7 @@ function CustomStyledMenuItem(props) {
   );
 }
 
-function Menu({ minimized }) {
+function Menu({ minimized, toggleSideMenu }) {
   let [activeTabId, setActiveTab] = useState();
   useEffect(() => {
     if (!minimized) {
@@ -59,9 +81,44 @@ function Menu({ minimized }) {
     }
   });
 
+  const mediaQuery = window.matchMedia("(min-width: 768px)");
+  // const mediaQuery2 = window.matchMedia("(max-width: 768px)");
+
+  let handleWidthChange = (e) => {
+    if (e.matches) {
+      console.log("TEST!", e);
+      document.getElementById("close-button") &&
+        (document.getElementById("close-button").style.display = "none");
+    } else {
+      console.log("TEST!2", e);
+      document.getElementById("close-button") &&
+        (document.getElementById("close-button").style.display = "block");
+    }
+  };
+
+  mediaQuery.addListener(handleWidthChange);
+  // mediaQuery.addListener(toggleSideMenu);
+
   return (
     <StyledMenu id="menu" minimized={minimized}>
       <MenuItemList minimized={minimized}>
+        {/* {window.screen.width <= 768 && ( */}
+        <X
+          id="close-button"
+          size="4.4rem"
+          color="#fff"
+          onClick={toggleSideMenu}
+        />
+        {/* )} */}
+        {/* <CustomX> */}
+        {/* <CustomX
+          id="close-button"
+          size="4.4rem"
+          color="#fff"
+          onClick={toggleSideMenu}
+        /> */}
+        {/* </CustomX> */}
+
         <Link to="/">
           <CustomStyledMenuItem
             id="btn0"

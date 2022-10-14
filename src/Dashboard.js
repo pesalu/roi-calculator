@@ -81,6 +81,10 @@ let Layout = styled.div`
   display: grid;
   // grid-template-columns: 0.2fr 0.8fr;
   grid-template-columns: auto 1fr;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 let Dashboard = () => {
@@ -109,7 +113,7 @@ let Dashboard = () => {
       <Router>
         <Header toggleSideMenu={toggleSideMenu} minimized={minimized}></Header>
         <Layout>
-          <Menu minimized={minimized}></Menu>
+          <Menu minimized={minimized} toggleSideMenu={toggleSideMenu}></Menu>
           <MainContent>
             <Routes>
               <Route path="/*">
