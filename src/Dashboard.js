@@ -12,7 +12,6 @@ import { RoiCalculator } from "./RoiCalculator";
 import { ControllerLineChartCard } from "./Components/PortfolioOverview";
 import { BarChartSquare } from "@styled-icons/boxicons-regular";
 import { autoType } from "d3";
-
 /* DESIGN SYSTEM 
 
   --- 01 TYPOGRAPHY SYSTEM
@@ -58,6 +57,7 @@ let Main = styled.div`
     rgba(0, 0, 0, 1) 100%
   );
   min-height: 100vh;
+  // min-width: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 `;
@@ -66,8 +66,8 @@ let MainContent = styled.div`
   margin: 0 auto;
   width: 80%;
 
-  @media screen and (max-width: 780px) {
-    max-width: 100%;
+  @media screen and (max-width: 1120px) {
+    width: 100%;
   }
 `;
 
