@@ -35,10 +35,10 @@ let MenuItemList = styled.div`
   transition: all 0.3s;
 `;
 
-let CustomX = styled(X)`
-  display: "none";
-  @media (max-width: 768px) {
-    display: "block";
+let StyledX = styled(X)`
+  display: block;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -52,17 +52,14 @@ function CustomStyledMenuItem(props) {
       {props.icon}
       <Togglable
         visible={!props.minimized}
-        onTransitionEnd={(e) => {
-          console.log("MIN>", props.minimized);
-
-          if (props.minimized) {
+        onTransitionEnd={() => {
+          props.minimized &&
             document
               .querySelectorAll(`[id^="menu-button-text"]`)
               .forEach((el) => {
                 console.log("EL: ", el.id);
                 el.style.display = "none";
               });
-          }
         }}
       >
         <h4 id="menu-button-text">{props.text}</h4>
@@ -81,44 +78,15 @@ function Menu({ minimized, toggleSideMenu }) {
     }
   });
 
-  const mediaQuery = window.matchMedia("(min-width: 768px)");
-  // const mediaQuery2 = window.matchMedia("(max-width: 768px)");
-
-  let handleWidthChange = (e) => {
-    if (e.matches) {
-      console.log("TEST!", e);
-      document.getElementById("close-button") &&
-        (document.getElementById("close-button").style.display = "none");
-    } else {
-      console.log("TEST!2", e);
-      document.getElementById("close-button") &&
-        (document.getElementById("close-button").style.display = "block");
-    }
-  };
-
-  mediaQuery.addListener(handleWidthChange);
-  // mediaQuery.addListener(toggleSideMenu);
-
   return (
     <StyledMenu id="menu" minimized={minimized}>
       <MenuItemList minimized={minimized}>
-        {/* {window.screen.width <= 768 && ( */}
-        <X
+        <StyledX
           id="close-button"
           size="4.4rem"
           color="#fff"
           onClick={toggleSideMenu}
         />
-        {/* )} */}
-        {/* <CustomX> */}
-        {/* <CustomX
-          id="close-button"
-          size="4.4rem"
-          color="#fff"
-          onClick={toggleSideMenu}
-        /> */}
-        {/* </CustomX> */}
-
         <Link to="/">
           <CustomStyledMenuItem
             id="btn0"
