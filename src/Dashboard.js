@@ -9,44 +9,8 @@ import styled from "styled-components";
 import Header from "./Components/Header";
 import Menu from "./Menu";
 import { RoiCalculator } from "./RoiCalculator";
-import { ControllerLineChartCard } from "./Components/PortfolioOverview";
+import { RoiCalculatorSingleCard } from "./Components/RoiCalculatorSingleCard";
 import { BarChartSquare } from "@styled-icons/boxicons-regular";
-import { autoType } from "d3";
-/* DESIGN SYSTEM 
-
-  --- 01 TYPOGRAPHY SYSTEM
-
-  FONT SIZE SYSTEM (px)
-  10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
-
-  - Font weights:
-  Default: 400
-  Medium: 500
-  Semi-Bold: 600
-  Bold: 700
-
-
-  - Line heights:
-  Default: 1
-  Small: 1.05
-  Medium: 1.2
-  Paragraph default: 1.6
-  Large: 1.8
-
-  - Letter spacing
-    - 0.5 px, 0.75 px
-
-  --- 02 COLORS
-  Primary: 
-  Tints: 
-  Shades: 
-  Accents:
-  Greys: 
-  #6F6F6F (lightest gray allowed)
-  #555
-  #333 
-  
-  */
 
 let Main = styled.div`
   background: rgb(2, 0, 36);
@@ -57,7 +21,6 @@ let Main = styled.div`
     rgba(0, 0, 0, 1) 100%
   );
   min-height: 100vh;
-  // min-width: 100vh;
   display: grid;
   grid-template-rows: auto 1fr auto;
 `;
@@ -79,7 +42,6 @@ let Footer = styled.div`
 
 let Layout = styled.div`
   display: grid;
-  // grid-template-columns: 0.2fr 0.8fr;
   grid-template-columns: auto 1fr;
 
   @media (max-width: 768px) {
@@ -132,7 +94,7 @@ let Dashboard = () => {
                   }
                 />
                 <Route
-                  path="test"
+                  path="roicalculator/classic"
                   element={
                     <RoiCalculator
                       investment={investment}
@@ -148,9 +110,9 @@ let Dashboard = () => {
                   }
                 />
                 <Route
-                  path="test2"
+                  path="roicalculator/singlecard"
                   element={
-                    <ControllerLineChartCard
+                    <RoiCalculatorSingleCard
                       investment={investment}
                       setInvestment={setInvestment}
                       interestRate={interestRate}
@@ -160,7 +122,7 @@ let Dashboard = () => {
                       fee={fee}
                       setFee={setFee}
                       data={data}
-                    ></ControllerLineChartCard>
+                    ></RoiCalculatorSingleCard>
                   }
                 />
               </Route>

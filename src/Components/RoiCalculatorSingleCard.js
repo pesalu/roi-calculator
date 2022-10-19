@@ -1,12 +1,16 @@
 import React from "react";
 import NumberInput from "./NumberInput";
 import LineChart from "../charts/LineChart/LineChart";
-import { GraphInputContainer, Container } from "../StyledContainers";
+import {
+  GraphInputContainer,
+  Container,
+  TitleContainer,
+} from "../StyledContainers";
 import styled from "styled-components";
+
 let Layout = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-  // @media (max-width: 768px) {
   @media (max-width: 1120px) {
     grid-template-columns: 1fr;
   }
@@ -39,19 +43,10 @@ let RoundedContainerRight = styled(Container)`
   }
 `;
 
-let Title = styled.h1`
-  font-size: 3rem;
-  color: #fff;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 1rem;
-
-  transition: all 0.3s;
-`;
-
-export function ControllerLineChartCard(props) {
+export function RoiCalculatorSingleCard(props) {
   return (
     <GraphInputContainer>
-      <Title>ROI Calculator (Single Card Layout)</Title>
+      <TitleContainer>ROI Calculator (Single Card Layout)</TitleContainer>
       <Layout>
         <RoundedContainerLeft>
           <NumberInput

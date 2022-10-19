@@ -97,7 +97,7 @@ function Menu({ minimized, toggleSideMenu }) {
             onClick={() => setActiveTab("btn0")}
           ></CustomStyledMenuItem>
         </Link>
-        <Link to="/test2">
+        <Link to="/roicalculator/classic">
           <CustomStyledMenuItem
             id="btn1"
             minimized={minimized}
@@ -107,7 +107,7 @@ function Menu({ minimized, toggleSideMenu }) {
             onClick={() => setActiveTab("btn1")}
           ></CustomStyledMenuItem>
         </Link>
-        <Link to="/test">
+        <Link to="/roicalculator/singlecard">
           <CustomStyledMenuItem
             id="btn2"
             minimized={minimized}

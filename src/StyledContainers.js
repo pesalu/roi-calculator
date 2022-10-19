@@ -14,10 +14,13 @@ export let Container = styled.div`
 `;
 
 export let TitleContainer = styled.h1`
+  font-family: "Inter Tight Bold";
   font-size: 3rem;
   color: #fff;
   border-bottom: 1px solid #eee;
   margin-bottom: 1rem;
+
+  transition: all 0.3s;
 `;
 export let TitleContainer2 = styled.div`
   font-size: 3rem;

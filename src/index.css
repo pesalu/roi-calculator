@@ -1,13 +1,65 @@
+/* DESIGN SYSTEM 
+
+  --- 01 TYPOGRAPHY SYSTEM
+
+  FONT SIZE SYSTEM (px)
+  10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+  - Font weights:
+  Default: 400
+  Medium: 500
+  Semi-Bold: 600
+  Bold: 700
+
+
+  - Line heights:
+  Default: 1
+  Small: 1.05
+  Medium: 1.2
+  Paragraph default: 1.6
+  Large: 1.8
+
+  - Letter spacing
+    - 0.5 px, 0.75 px
+
+  --- 02 COLORS
+  Primary: 
+  Tints: 
+  Shades: 
+  Accents:
+  Greys: 
+  #6F6F6F (lightest gray allowed)
+  #555
+  #333 
+  
+  */
+
+@font-face {
+  font-family: "Inter Tight Bold";
+  src: url(./fonts/inter-tight/InterTight-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Inter Tight Medium";
+  src: url(./fonts/inter-tight/InterTight-Medium.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Inter Tight Regular";
+  src: url(./fonts/inter-tight/InterTight-Regular.ttf) format("truetype");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Inter Tight Regular", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.7px;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
