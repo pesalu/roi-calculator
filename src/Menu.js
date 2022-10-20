@@ -57,7 +57,6 @@ function CustomStyledMenuItem(props) {
             document
               .querySelectorAll(`[id^="menu-button-text"]`)
               .forEach((el) => {
-                console.log("EL: ", el.id);
                 el.style.display = "none";
               });
         }}

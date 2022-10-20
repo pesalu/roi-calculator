@@ -1,5 +1,4 @@
 export let roi = (investment, interest, cost, year) => {
-  console.log(interest, cost);
   let coeff = 1 + interest - cost;
   return investment * Math.pow(coeff, year);
 };
