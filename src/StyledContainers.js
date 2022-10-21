@@ -21,23 +21,6 @@ export let TitleContainer = styled.h1`
 
   transition: all 0.3s;
 `;
-export let TitleContainer2 = styled.div`
-  font-size: 3rem;
-  color: #fff;
-  margin-bottom: 1rem;
-
-  display: flex;
-  align-items: center;
-`;
-export let Title = styled.h1`
-  font-size: 3rem;
-  color: #fff;
-  border-bottom: 1px solid #eee;
-  margin-bottom: 1rem;
-
-  transition: all 0.3s;
-  opacity: ${(props) => (props.visible ? 1 : 0)};
-`;
 
 export let Togglable = styled.div`
   transition: all 0.3s;
