@@ -3,7 +3,6 @@ import styled from "styled-components";
 export let GraphInputContainer = styled.div`
   padding: 1rem;
   display: grid;
-  width: 100%;
   gap: 1rem;
 `;
 
