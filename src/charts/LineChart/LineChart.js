@@ -15,14 +15,17 @@ let Svg = styled.svg`
   margin-left: 0rem;
 `;
 
-const height = 400;
-const width = 900;
 function LineChart({ data }) {
+  // Clear the previous rendered content before rerender
   d3.select("#canvas").selectAll("g > *").remove();
   d3.select("#canvas").selectAll("circle").remove();
   d3.select("#canvas").selectAll(".tooltip").remove();
 
-  let renderFn = getRenderFn(data);
+  const height = 400;
+  const width = 900;
+  let canvasProperties = { width, height };
+
+  let renderFn = getRenderFn(data, canvasProperties);
   useEffect(renderFn, [data]);
 
   return (
@@ -49,7 +52,7 @@ function LineChart({ data }) {
 
 export default LineChart;
 
-function getRenderFn(data) {
+function getRenderFn(data, { width, height }) {
   return () => {
     let svg = d3.select("#canvas-svg");
     const margin = { top: 20, right: 30, bottom: 30, left: 40 };
@@ -57,17 +60,17 @@ function getRenderFn(data) {
 
     // Get functions for mapping calculated coordinates to
     // to render coordinates
-    const getX = getXinPlotArea(data, margin);
-    const getY = getYinPlotArea(data, margin);
+    const getX = getXinPlotArea(data, margin, width);
+    const getY = getYinPlotArea(data, margin, height);
 
     // Create axis
-    const xAxis = getXAxis(margin, getX);
+    const xAxis = getXAxis(margin, getX, width, height);
     const yAxis = getYAxis(margin, getY, data);
     svg.select(".x-axis").call(xAxis);
     svg.select(".y-axis").call(yAxis);
 
     // Create background grid
-    drawGrid(svg, margin, getY);
+    drawGrid(svg, margin, width, getY);
 
     // Create tooltip
     let tooltipDiv = getTooltip();
@@ -82,7 +85,9 @@ function getRenderFn(data) {
       getX,
       getY,
       circleRadius,
-      tooltipText
+      tooltipText,
+      width,
+      height
     );
     svg.on("mousemove", mousemove).on("mouseleave", mouseleave);
 
@@ -115,11 +120,8 @@ function drawDataPoints(svg, data, circleRadius, getX, getY) {
 }
 
 function drawLine(svg, data, getX, getY) {
-  console.log(svg);
   let plotArea = svg.select(".plot-area");
-  console.log(plotArea);
   let path = plotArea.append("path");
-  console.log(path);
   path
     .datum(data)
     .attr("id", "line-graph")
@@ -157,7 +159,9 @@ function getMouseMoveHandler(
   getX,
   getY,
   circleRadius,
-  tooltipText
+  tooltipText,
+  width,
+  height
 ) {
   return (event, d) => {
     const bisect = d3.bisector((d) => d.x).left;
@@ -214,7 +218,7 @@ function getTooltip() {
     .style("opacity", 0);
 }
 
-function drawGrid(svg, margin, getY) {
+function drawGrid(svg, margin, width, getY) {
   svg
     .select(".grid")
     .attr("transform", `translate(${margin.left},0)`)
@@ -250,7 +254,7 @@ function getYAxis(margin, getY, data) {
       );
 }
 
-function getXAxis(margin, getX) {
+function getXAxis(margin, getX, width, height) {
   return (g) =>
     g.attr("transform", `translate(0,${height - margin.bottom})`).call(
       d3
@@ -264,14 +268,14 @@ function getXAxis(margin, getX) {
     );
 }
 
-function getYinPlotArea(data, margin) {
+function getYinPlotArea(data, margin, height) {
   return d3
     .scaleLinear()
     .domain([0.95 * d3.min(data, (d) => d.y), 1.05 * d3.max(data, (d) => d.y)])
     .rangeRound([height - margin.bottom, margin.top]);
 }
 
-function getXinPlotArea(data, margin) {
+function getXinPlotArea(data, margin, width) {
   return d3
     .scaleLinear()
     .domain([0.95 * d3.min(data, (d) => d.x), 1.05 * d3.max(data, (d) => d.x)])
