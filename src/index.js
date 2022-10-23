@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import reportWebVitals from "./reportWebVitals";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Components/Dashboard";
 import "./index.css";
 
 ReactDOM.render(

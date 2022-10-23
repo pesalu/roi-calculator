@@ -5,7 +5,7 @@ import {
   GraphInputContainer,
   Container,
   TitleContainer,
-} from "../StyledContainers";
+} from "./StyledContainers";
 import styled from "styled-components";
 
 let Layout = styled.div`

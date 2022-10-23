@@ -2,14 +2,14 @@ import React, { useState } from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { roiForPeriod } from "./services/ComputeRoi";
+import { roiForPeriod } from "../services/ComputeRoi";
 
 import styled from "styled-components";
 
-import Header from "./Components/Header";
+import Header from "./Header";
 import Menu from "./Menu";
 import { RoiCalculator } from "./RoiCalculator";
-import { RoiCalculatorSingleCard } from "./Components/RoiCalculatorSingleCard";
+import { RoiCalculatorSingleCard } from "./RoiCalculatorSingleCard";
 import { BarChartSquare } from "@styled-icons/boxicons-regular";
 
 let Main = styled.div`

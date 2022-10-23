@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { MenuAltLeft, UserCircle, Bell } from "@styled-icons/boxicons-regular";
-import { HeaderMenuItem } from "../StyledContainers";
+import { HeaderMenuItem } from "./StyledContainers";
 import { Link } from "react-router-dom";
 export let NavBar = styled.nav`
   display: flex;

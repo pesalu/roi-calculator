@@ -1,6 +1,6 @@
 import React from "react";
-import Input from "./Components/NumberInput";
-import LineChart from "./charts/LineChart/LineChart";
+import Input from "./NumberInput";
+import LineChart from "../charts/LineChart/LineChart";
 import {
   GraphInputContainer,
   TitleContainer,
