@@ -8,6 +8,7 @@ import {
   Home,
   LineChart,
   MenuAltLeft,
+  ScatterChart,
   X,
 } from "@styled-icons/boxicons-regular";
 import { Link } from "react-router-dom";
@@ -113,6 +114,16 @@ function Menu({ minimized, toggleSideMenu }) {
             isActive={"btn2" === activeTabId}
             text={"ROI Calculator (Single Card Layout)"}
             icon={<BarChartAlt2 size="4.4rem" color="#fff" />}
+            onClick={() => setActiveTab("btn2")}
+          ></CustomStyledMenuItem>
+        </Link>
+        <Link to="/irisdata">
+          <CustomStyledMenuItem
+            id="btn2"
+            minimized={minimized}
+            isActive={"btn2" === activeTabId}
+            text={"Scatter Plot (Iris Data)"}
+            icon={<ScatterChart size="4.4rem" color="#fff" />}
             onClick={() => setActiveTab("btn2")}
           ></CustomStyledMenuItem>
         </Link>
