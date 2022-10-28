@@ -78,6 +78,29 @@ function Menu({ minimized, toggleSideMenu }) {
     }
   });
 
+  let menuButtons = [
+    {
+      path: "/",
+      text: "Home",
+      icon: <Home size="4.4rem" color="#fff" />,
+    },
+    {
+      path: "/roicalculator/classic",
+      text: "ROI Calculator (Classic Layout)",
+      icon: <LineChart size="4.4rem" color="#fff" />,
+    },
+    {
+      path: "/roicalculator/singlecard",
+      text: "ROI Calculator (Single Card Layout)",
+      icon: <BarChartAlt2 size="4.4rem" color="#fff" />,
+    },
+    {
+      path: "/irisdata",
+      text: "Scatter Plot (Iris Data)",
+      icon: <ScatterChart size="4.4rem" color="#fff" />,
+    },
+  ];
+
   return (
     <StyledMenu id="menu" minimized={minimized}>
       <MenuItemList minimized={minimized}>
@@ -87,46 +110,18 @@ function Menu({ minimized, toggleSideMenu }) {
           color="#fff"
           onClick={toggleSideMenu}
         />
-        <Link to="/">
-          <CustomStyledMenuItem
-            id="btn0"
-            minimized={minimized}
-            isActive={"btn0" === activeTabId}
-            text={"Home"}
-            icon={<Home size="4.4rem" color="#fff" />}
-            onClick={() => setActiveTab("btn0")}
-          ></CustomStyledMenuItem>
-        </Link>
-        <Link to="/roicalculator/classic">
-          <CustomStyledMenuItem
-            id="btn1"
-            minimized={minimized}
-            isActive={"btn1" === activeTabId}
-            text={"ROI Calculator (Classic Layout)"}
-            icon={<LineChart size="4.4rem" color="#fff" />}
-            onClick={() => setActiveTab("btn1")}
-          ></CustomStyledMenuItem>
-        </Link>
-        <Link to="/roicalculator/singlecard">
-          <CustomStyledMenuItem
-            id="btn2"
-            minimized={minimized}
-            isActive={"btn2" === activeTabId}
-            text={"ROI Calculator (Single Card Layout)"}
-            icon={<BarChartAlt2 size="4.4rem" color="#fff" />}
-            onClick={() => setActiveTab("btn2")}
-          ></CustomStyledMenuItem>
-        </Link>
-        <Link to="/irisdata">
-          <CustomStyledMenuItem
-            id="btn2"
-            minimized={minimized}
-            isActive={"btn2" === activeTabId}
-            text={"Scatter Plot (Iris Data)"}
-            icon={<ScatterChart size="4.4rem" color="#fff" />}
-            onClick={() => setActiveTab("btn2")}
-          ></CustomStyledMenuItem>
-        </Link>
+        {menuButtons.map(({ path, text, icon }, idx) => (
+          <Link to={path}>
+            <CustomStyledMenuItem
+              id="`menu-button-${idx}`"
+              minimized={minimized}
+              isActive={`menu-button-${idx}` === activeTabId}
+              text={text}
+              icon={icon}
+              onClick={() => setActiveTab(`menu-button-${idx}`)}
+            ></CustomStyledMenuItem>
+          </Link>
+        ))}
       </MenuItemList>
     </StyledMenu>
   );
