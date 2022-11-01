@@ -6,10 +6,15 @@ import {
   TitleContainer,
   Container,
 } from "./StyledContainers";
+import styled from "styled-components";
+
+let GraphInputContainerCustom = styled(GraphInputContainer)`
+  height: auto;
+`;
 
 export function RoiCalculator(props) {
   return (
-    <GraphInputContainer>
+    <GraphInputContainerCustom>
       <TitleContainer visible={true}>
         ROI Calculator (Classic Layout)
       </TitleContainer>
@@ -36,6 +41,6 @@ export function RoiCalculator(props) {
         />
       </Container>
       <LineChart data={props.data} />
-    </GraphInputContainer>
+    </GraphInputContainerCustom>
   );
 }

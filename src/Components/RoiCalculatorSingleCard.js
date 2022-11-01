@@ -43,9 +43,13 @@ let RoundedContainerRight = styled(Container)`
   }
 `;
 
+let GraphInputContainerCustom = styled(GraphInputContainer)`
+  height: auto;
+`;
+
 export function RoiCalculatorSingleCard(props) {
   return (
-    <GraphInputContainer>
+    <GraphInputContainerCustom>
       <TitleContainer>ROI Calculator (Single Card Layout)</TitleContainer>
       <Layout>
         <RoundedContainerLeft>
@@ -74,6 +78,6 @@ export function RoiCalculatorSingleCard(props) {
           <LineChart data={props.data} />
         </RoundedContainerRight>
       </Layout>
-    </GraphInputContainer>
+    </GraphInputContainerCustom>
   );
 }
