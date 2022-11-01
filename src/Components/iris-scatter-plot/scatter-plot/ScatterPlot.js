@@ -36,7 +36,9 @@ export function ScatterPlot(props) {
         }
         visibility={props.hoveredDatapoint ? "visible" : "hidden"}
       />
-      <svg width={width} height={height}>
+      {/* <svg width={"100%"} height={"100%"} viewBox={`0 0 ${width} ${height}`}> */}
+      <svg width={"100%"} height={"100%"}>
+        {/* <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`}> */}
         <g transform={`translate(${margin.left}, ${margin.top})`}>
           <AxisBottom
             xScale={props.xScale}
@@ -68,7 +70,7 @@ export function ScatterPlot(props) {
             {props.yAxisLabel}
           </text>
           <g
-            transform={`translate(${innerWidth + margin.right / 5}, ${
+            transform={`translate(${innerWidth + margin.right / 4}, ${
               innerHeight / 2.5
             })`}
           >

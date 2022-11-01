@@ -12,7 +12,7 @@ import { RoiCalculator } from "./RoiCalculator";
 import { RoiCalculatorSingleCard } from "./RoiCalculatorSingleCard";
 import { GraphInputContainer, TitleContainer } from "./StyledContainers";
 import { BarChartSquare } from "@styled-icons/boxicons-regular";
-import ResponsivePlotContainer from "./iris-scatter-plot/PlotContainer";
+import PlotContainer from "./iris-scatter-plot/dashboard/PlotContainer";
 
 let Main = styled.div`
   background: rgb(2, 0, 36);
@@ -134,7 +134,7 @@ let Dashboard = () => {
                       <TitleContainer visible={true}>
                         Iris Data (Scatter Plot)
                       </TitleContainer>
-                      <ResponsivePlotContainer />
+                      <PlotContainer />
                     </GraphInputContainer>
                   }
                 />

@@ -7,6 +7,8 @@
 
   background: #eee;
   border-radius: 9px;
+  /* height: 50vh; */
+  flex-grow: 1;
 }
 
 .menus-container {

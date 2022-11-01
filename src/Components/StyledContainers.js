@@ -4,6 +4,8 @@ export let GraphInputContainer = styled.div`
   padding: 1rem;
   display: grid;
   gap: 1rem;
+  grid-template-rows: auto 1fr;
+  height: 100%;
 `;
 
 export let Container = styled.div`
